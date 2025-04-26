@@ -21,20 +21,29 @@ interface GameGetResponse {
   start_time: string | null;
   end_time: string | null;
   status: GameStatusEnum;
-  box_score: number[] | null;
+  box_score: number[];
   rhe: number[] | null;
   is_scorhegami: boolean | null;
   bref_url: string | null;
   date: string;
 }
 
-async function getGames(date: Date | null): Promise<GameGetResponse[]> {
+async function getGames(
+  game_date: Date | null,
+  filter_statuses: GameStatusEnum[] | null
+): Promise<GameGetResponse[]> {
   const params = new URLSearchParams();
   params.append("offset", "0");
   params.append("count", "30");
 
-  if (date !== null) {
-    params.append("filter_date", date.toISOString().split("T")[0]);
+  if (game_date !== null) {
+    params.append("filter_date", game_date.toISOString().split("T")[0]);
+  }
+
+  if (filter_statuses !== null) {
+    filter_statuses.forEach((game_status) => {
+      params.append("filter_statuses", game_status);
+    });
   }
 
   const resp = await fetch(`http://127.0.0.1:8000/game?${params.toString()}`);
@@ -46,14 +55,14 @@ function BaseballGame({ game }: { game: GameGetResponse }) {
   const boxScore = game.box_score;
 
   const awayPart: number[] | string[] =
-    boxScore !== null
-      ? boxScore.slice(0, boxScore.length / 2)
-      : Array(12).fill("-");
+    game.status === "STATUS_SCHEDULED"
+      ? Array(12).fill("-")
+      : boxScore.slice(0, boxScore.length / 2);
 
   const homePart: number[] | string[] =
-    boxScore !== null
-      ? boxScore.slice(boxScore.length / 2)
-      : Array(12).fill("-");
+    game.status === "STATUS_SCHEDULED"
+      ? Array(12).fill("-")
+      : boxScore.slice(boxScore.length / 2);
 
   const numInnings = Math.max(awayPart.length - 3, 9);
   return (
@@ -97,7 +106,7 @@ function GameLookup() {
     e.preventDefault();
 
     try {
-      const games = await getGames(date);
+      const games = await getGames(date, ["STATUS_FINAL"]);
       setGames(games);
     } catch (err) {
       console.log(err);

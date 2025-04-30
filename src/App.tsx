@@ -1,5 +1,6 @@
 import { useState } from "react";
 import GameLookup from "./GameLookup";
+import TodayGames from "./TodayGames";
 import "./App.css";
 
 function Select() {
@@ -24,7 +25,7 @@ function Main({ menu }: MainProps) {
   return (
     <>
       <div style={{ display: menu === 0 ? "block" : "none" }}>
-        <p>0</p>
+        <TodayGames />
       </div>
       <div style={{ display: menu === 1 ? "block" : "none" }}>
         <p>1</p>

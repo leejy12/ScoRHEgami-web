@@ -1,100 +1,8 @@
 import React, { useState } from "react";
 
-interface TeamModel {
-  id: number;
-  short_name: string | null;
-  name: string;
-}
-
-type GameStatusEnum =
-  | "STATUS_SCHEDULED"
-  | "STATUS_IN_PROGRESS"
-  | "STATUS_FINAL"
-  | "STATUS_POSTPONED"
-  | "STATUS_RAIN_DELAY";
-
-interface GameGetResponse {
-  id: number;
-  balldontlie_id?: number | null;
-  away_team: TeamModel;
-  home_team: TeamModel;
-  start_time: string | null;
-  end_time: string | null;
-  status: GameStatusEnum;
-  box_score: number[];
-  rhe: number[] | null;
-  is_scorhegami: boolean | null;
-  bref_url: string | null;
-  date: string;
-}
-
-async function getGames(
-  game_date: Date | null,
-  filter_statuses: GameStatusEnum[] | null
-): Promise<GameGetResponse[]> {
-  const params = new URLSearchParams();
-  params.append("offset", "0");
-  params.append("count", "30");
-
-  if (game_date !== null) {
-    params.append("filter_date", game_date.toISOString().split("T")[0]);
-  }
-
-  if (filter_statuses !== null) {
-    filter_statuses.forEach((game_status) => {
-      params.append("filter_statuses", game_status);
-    });
-  }
-
-  const resp = await fetch(`http://127.0.0.1:8000/game?${params.toString()}`);
-
-  return await resp.json();
-}
-
-function BaseballGame({ game }: { game: GameGetResponse }) {
-  const boxScore = game.box_score;
-
-  const awayPart: number[] | string[] =
-    game.status === "STATUS_SCHEDULED"
-      ? Array(12).fill("-")
-      : boxScore.slice(0, boxScore.length / 2);
-
-  const homePart: number[] | string[] =
-    game.status === "STATUS_SCHEDULED"
-      ? Array(12).fill("-")
-      : boxScore.slice(boxScore.length / 2);
-
-  const numInnings = Math.max(awayPart.length - 3, 9);
-  return (
-    <table>
-      <thead>
-        <tr>
-          <td>&nbsp;</td>
-          {Array.from({ length: numInnings }, (_, i) => (
-            <th key={i}>{i + 1}</th>
-          ))}
-          <th>R</th>
-          <th>H</th>
-          <th>E</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{game.away_team.name}</td>
-          {awayPart.map((n, i) => (
-            <td key={`away-${i}`}>{n}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>{game.home_team.name}</td>
-          {homePart.map((n, i) => (
-            <td key={`home-${i}`}>{n}</td>
-          ))}
-        </tr>
-      </tbody>
-    </table>
-  );
-}
+import { GameGetResponse } from "./scorhegami";
+import BaseballGame from "./BaseballGame";
+import { getGames } from "./api";
 
 function GameLookup() {
   const [date, setDate] = useState<Date | null>(null);
@@ -106,8 +14,10 @@ function GameLookup() {
     e.preventDefault();
 
     try {
-      const games = await getGames(date, ["STATUS_FINAL"]);
-      setGames(games);
+      if (date !== null) {
+        const games = await getGames([date], ["STATUS_FINAL"]);
+        setGames(games);
+      }
     } catch (err) {
       console.log(err);
     }

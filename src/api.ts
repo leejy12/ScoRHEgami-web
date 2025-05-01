@@ -8,23 +8,30 @@ function formatDateToYYYYMMDD(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
+export type GameGetRequest = {
+  offset: number;
+  count: number;
+  filter_dates?: Date[];
+  filter_statuses?: GameStatusEnum[];
+};
+
 export async function getGames(
-  game_dates: Date[] | null,
-  filter_statuses: GameStatusEnum[] | null
+  request: GameGetRequest
 ): Promise<GameGetResponse[]> {
   const params = new URLSearchParams();
-  params.append("offset", "0");
-  params.append("count", "30");
 
-  if (game_dates !== null) {
-    game_dates.forEach((game_date) => {
-      params.append("filter_dates", formatDateToYYYYMMDD(game_date));
+  params.append("offset", request.offset.toString());
+  params.append("count", request.count.toString());
+
+  if (request.filter_dates && request.filter_dates.length > 0) {
+    request.filter_dates.forEach((date) => {
+      params.append("filter_dates", formatDateToYYYYMMDD(date));
     });
   }
 
-  if (filter_statuses !== null) {
-    filter_statuses.forEach((game_status) => {
-      params.append("filter_statuses", game_status);
+  if (request.filter_statuses && request.filter_statuses.length > 0) {
+    request.filter_statuses.forEach((status) => {
+      params.append("filter_statuses", status);
     });
   }
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import BaseballGame from "./BaseballGame";
 import { GameGetResponse } from "./scorhegami";
 
-import { getGames } from "./api";
+import { GameGetRequest, getGames } from "./api";
 
 function TodayGames() {
   const [games, setGames] = useState<GameGetResponse[]>([]);
@@ -13,9 +13,14 @@ function TodayGames() {
         "http://127.0.0.1:8000/game/latest_completed_date"
       );
       const lastDate = new Date(await resp.text());
-      console.log(lastDate);
 
-      const games = await getGames([lastDate], ["STATUS_FINAL"]);
+      const request: GameGetRequest = {
+        offset: 0,
+        count: 30,
+        filter_dates: [lastDate],
+        filter_statuses: ["STATUS_FINAL"],
+      };
+      const games = await getGames(request);
       setGames(games);
     };
 

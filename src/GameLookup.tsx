@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { GameGetResponse } from "./scorhegami";
 import BaseballGame from "./BaseballGame";
-import { getGames } from "./api";
+import { getGames, GameGetRequest } from "./api";
 
 function GameLookup() {
   const [date, setDate] = useState<Date | null>(null);
@@ -15,7 +15,13 @@ function GameLookup() {
 
     try {
       if (date !== null) {
-        const games = await getGames([date], ["STATUS_FINAL"]);
+        const request: GameGetRequest = {
+          offset: 0,
+          count: 30,
+          filter_dates: [date],
+          filter_statuses: ["STATUS_FINAL"],
+        };
+        const games = await getGames(request);
         setGames(games);
       }
     } catch (err) {

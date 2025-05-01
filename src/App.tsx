@@ -2,6 +2,7 @@ import { useState } from "react";
 import GameLookup from "./GameLookup";
 import TodayGames from "./TodayGames";
 import "./App.css";
+import MostRecent from "./MostRecent";
 
 function Select() {
   const [menu, setMenu] = useState(0);
@@ -28,7 +29,7 @@ function Main({ menu }: MainProps) {
         <TodayGames />
       </div>
       <div style={{ display: menu === 1 ? "block" : "none" }}>
-        <p>1</p>
+        <MostRecent />
       </div>
       <div style={{ display: menu === 2 ? "block" : "none" }}>
         <p>2</p>

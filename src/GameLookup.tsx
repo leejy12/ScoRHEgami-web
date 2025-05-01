@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-import { GameGetResponse } from "./scorhegami";
 import BaseballGame from "./BaseballGame";
-import { getGames, GameGetRequest } from "./api";
+import { getGames, GameGetRequest, GameGetResponse } from "./api";
 
 function GameLookup() {
   const [date, setDate] = useState<Date | null>(null);

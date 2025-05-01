@@ -1,4 +1,4 @@
-import { GameGetResponse } from "./scorhegami";
+import { GameGetResponse } from "./api";
 
 function BaseballGame({ game }: { game: GameGetResponse }) {
   const boxScore = game.box_score;

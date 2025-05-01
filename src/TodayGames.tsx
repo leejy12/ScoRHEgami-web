@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import BaseballGame from "./BaseballGame";
-import { GameGetResponse } from "./scorhegami";
 
-import { GameGetRequest, getGames } from "./api";
+import { GameGetRequest, GameGetResponse, getGames } from "./api";
 
 function TodayGames() {
   const [games, setGames] = useState<GameGetResponse[]>([]);

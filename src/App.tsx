@@ -11,8 +11,7 @@ function Select() {
     <div>
       <button onClick={() => setMenu(0)}>Today's Games</button>
       <button onClick={() => setMenu(1)}>Most Recent</button>
-      <button onClick={() => setMenu(2)}>Most Common</button>
-      <button onClick={() => setMenu(3)}>Search</button>
+      <button onClick={() => setMenu(2)}>Search</button>
       <Main menu={menu} />
     </div>
   );
@@ -32,9 +31,6 @@ function Main({ menu }: MainProps) {
         <MostRecent />
       </div>
       <div style={{ display: menu === 2 ? "block" : "none" }}>
-        <p>2</p>
-      </div>
-      <div style={{ display: menu === 3 ? "block" : "none" }}>
         <GameLookup />
       </div>
     </>

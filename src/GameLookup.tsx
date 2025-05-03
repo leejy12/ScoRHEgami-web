@@ -37,37 +37,66 @@ function GameLookup() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          id="awayR"
-          onChange={(e) => setAwayR(e.target.valueAsNumber)}
-        ></input>
-        <input
-          type="number"
-          id="awayH"
-          onChange={(e) => setAwayH(e.target.valueAsNumber)}
-        ></input>
-        <input
-          type="number"
-          id="awayE"
-          onChange={(e) => setAwayE(e.target.valueAsNumber)}
-        ></input>
-        <br />
-        <input
-          type="number"
-          id="homeR"
-          onChange={(e) => setHomeR(e.target.valueAsNumber)}
-        ></input>
-        <input
-          type="number"
-          id="homeH"
-          onChange={(e) => setHomeH(e.target.valueAsNumber)}
-        ></input>
-        <input
-          type="number"
-          id="homeE"
-          onChange={(e) => setHomeE(e.target.valueAsNumber)}
-        ></input>
+        <table>
+          <thead>
+            <tr>
+              <td></td>
+              <td>R</td>
+              <td>H</td>
+              <td>E</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Away</td>
+              <td>
+                <input
+                  type="number"
+                  id="awayR"
+                  onChange={(e) => setAwayR(e.target.valueAsNumber)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="awayH"
+                  onChange={(e) => setAwayH(e.target.valueAsNumber)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="awayE"
+                  onChange={(e) => setAwayE(e.target.valueAsNumber)}
+                ></input>
+              </td>
+            </tr>
+            <tr>
+              <td>Home</td>
+              <td>
+                <input
+                  type="number"
+                  id="homeR"
+                  onChange={(e) => setHomeR(e.target.valueAsNumber)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="homeH"
+                  onChange={(e) => setHomeH(e.target.valueAsNumber)}
+                ></input>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="homeE"
+                  onChange={(e) => setHomeE(e.target.valueAsNumber)}
+                ></input>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <button type="submit">Submit</button>
       </form>
       {games.map((game) => (

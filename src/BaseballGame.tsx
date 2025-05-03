@@ -3,9 +3,10 @@ import { GameGetResponse } from "./api";
 type BaseballGameProps = {
   game: GameGetResponse;
   show_scorhegami: boolean;
+  show_date: boolean;
 };
 
-function BaseballGame({ game, show_scorhegami }: BaseballGameProps) {
+function BaseballGame({ game, show_scorhegami, show_date }: BaseballGameProps) {
   const boxScore = game.box_score;
 
   const awayPart: number[] | string[] =
@@ -32,6 +33,7 @@ function BaseballGame({ game, show_scorhegami }: BaseballGameProps) {
           <th>E</th>
         </tr>
         {show_scorhegami ? <th></th> : <></>}
+        {show_date ? <th></th> : <></>}
       </thead>
       <tbody>
         <tr>
@@ -44,6 +46,7 @@ function BaseballGame({ game, show_scorhegami }: BaseballGameProps) {
           ) : (
             <></>
           )}
+          {show_date ? <td rowSpan={2}>{game.date}</td> : <></>}
         </tr>
         <tr>
           <td>{game.home_team.name}</td>

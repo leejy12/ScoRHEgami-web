@@ -46,7 +46,12 @@ function TodayGames() {
         {singular ? "game" : "games"} that were ScoRHEgamis.
       </p>
       {games.map((game) => (
-        <BaseballGame key={game.id} game={game} show_scorhegami={true} />
+        <BaseballGame
+          key={game.id}
+          game={game}
+          show_scorhegami={true}
+          show_date={false}
+        />
       ))}
     </>
   );

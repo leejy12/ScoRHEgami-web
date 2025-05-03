@@ -51,13 +51,13 @@ export async function getGames(
   params.append("offset", request.offset.toString());
   params.append("count", request.count.toString());
 
-  if (request.filter_dates && request.filter_dates.length > 0) {
+  if (request.filter_dates?.length) {
     request.filter_dates.forEach((date) => {
       params.append("filter_dates", formatDateToYYYYMMDD(date));
     });
   }
 
-  if (request.filter_statuses && request.filter_statuses.length > 0) {
+  if (request.filter_statuses?.length) {
     request.filter_statuses.forEach((status) => {
       params.append("filter_statuses", status);
     });
@@ -67,7 +67,7 @@ export async function getGames(
     params.append("is_scorhegami", request.is_scorhegami.toString());
   }
 
-  if (request.rhe && request.rhe.length > 0) {
+  if (request.rhe?.length) {
     request.rhe.forEach((n) => {
       params.append("rhe", n.toString());
     });

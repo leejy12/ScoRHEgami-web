@@ -31,9 +31,9 @@ function BaseballGame({ game, show_scorhegami, show_date }: BaseballGameProps) {
           <th>R</th>
           <th>H</th>
           <th>E</th>
+          {show_scorhegami ? <th></th> : <></>}
+          {show_date ? <th></th> : <></>}
         </tr>
-        {show_scorhegami ? <th></th> : <></>}
-        {show_date ? <th></th> : <></>}
       </thead>
       <tbody>
         <tr>

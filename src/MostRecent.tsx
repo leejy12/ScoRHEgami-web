@@ -23,7 +23,7 @@ function MostRecent() {
   return (
     <>
       {games.map((game) => (
-        <BaseballGame game={game} key={game.id} />
+        <BaseballGame key={game.id} game={game} show_scorhegami={false} />
       ))}
     </>
   );

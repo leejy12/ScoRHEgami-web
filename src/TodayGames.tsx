@@ -28,6 +28,9 @@ function TodayGames() {
     setGameData();
   }, []);
 
+  const numScorhegami = games.filter((game) => game.is_scorhegami).length;
+  const singular = numScorhegami === 1;
+
   return (
     <>
       <h3>
@@ -38,8 +41,12 @@ function TodayGames() {
           day: "numeric",
         })}
       </h3>
+      <p>
+        There {singular ? "was" : "were"} {numScorhegami}{" "}
+        {singular ? "game" : "games"} that were ScoRHEgamis.
+      </p>
       {games.map((game) => (
-        <BaseballGame game={game} key={game.id} />
+        <BaseballGame key={game.id} game={game} show_scorhegami={true} />
       ))}
     </>
   );

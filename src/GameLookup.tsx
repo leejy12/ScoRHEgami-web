@@ -39,7 +39,7 @@ function GameLookup() {
         <button type="submit">Submit</button>
       </form>
       {games.map((game) => (
-        <BaseballGame game={game} key={game.id} />
+        <BaseballGame key={game.id} game={game} show_scorhegami={false} />
       ))}
     </>
   );

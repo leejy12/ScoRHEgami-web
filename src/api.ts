@@ -40,6 +40,7 @@ export type GameGetRequest = {
   filter_dates?: Date[];
   filter_statuses?: GameStatusEnum[];
   is_scorhegami?: boolean;
+  rhe?: number[];
 };
 
 export async function getGames(
@@ -64,6 +65,12 @@ export async function getGames(
 
   if (request.is_scorhegami) {
     params.append("is_scorhegami", request.is_scorhegami.toString());
+  }
+
+  if (request.rhe && request.rhe.length > 0) {
+    request.rhe.forEach((n) => {
+      params.append("rhe", n.toString());
+    });
   }
 
   const resp = await fetch(`http://127.0.0.1:8000/game?${params.toString()}`);

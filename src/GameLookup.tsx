@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import BaseballGame from "./BaseballGame";
 import {
   getGames,
   GameGetRequest,
@@ -8,6 +7,7 @@ import {
   getGamesCount,
   GameStatusEnum,
 } from "./api";
+import BaseballGameTable from "./BaseballGameTable";
 
 function GameLookup() {
   const [games, setGames] = useState<GameGetResponse[]>([]);
@@ -148,14 +148,11 @@ function GameLookup() {
         <>
           {games.length > 0 ? (
             <>
-              {games.map((game) => (
-                <BaseballGame
-                  key={game.id}
-                  game={game}
-                  show_scorhegami={false}
-                  show_date={true}
-                />
-              ))}
+              <BaseballGameTable
+                games={games}
+                show_scorhegami={false}
+                show_date={true}
+              />
 
               {getTotalPages() > 1 && (
                 <div className="pagination">

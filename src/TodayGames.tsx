@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import BaseballGame from "./BaseballGame";
-
 import { GameGetRequest, GameGetResponse, getGames } from "./api";
+import BaseballGameTable from "./BaseballGameTable";
 
 function TodayGames() {
   const [games, setGames] = useState<GameGetResponse[]>([]);
@@ -45,14 +44,11 @@ function TodayGames() {
         There {singular ? "was" : "were"} {numScorhegami}{" "}
         {singular ? "game" : "games"} that were ScoRHEgamis.
       </p>
-      {games.map((game) => (
-        <BaseballGame
-          key={game.id}
-          game={game}
-          show_scorhegami={true}
-          show_date={false}
-        />
-      ))}
+      <BaseballGameTable
+        games={games}
+        show_scorhegami={true}
+        show_date={false}
+      />
     </>
   );
 }

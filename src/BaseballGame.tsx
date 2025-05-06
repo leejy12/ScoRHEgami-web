@@ -2,11 +2,9 @@ import { GameGetResponse } from "./api";
 
 type BaseballGameProps = {
   game: GameGetResponse;
-  show_scorhegami: boolean;
-  show_date: boolean;
 };
 
-function BaseballGame({ game, show_scorhegami, show_date }: BaseballGameProps) {
+function BaseballGame({ game }: BaseballGameProps) {
   const boxScore = game.box_score;
 
   const awayPart: number[] | string[] =
@@ -31,8 +29,6 @@ function BaseballGame({ game, show_scorhegami, show_date }: BaseballGameProps) {
           <th>R</th>
           <th>H</th>
           <th>E</th>
-          {show_scorhegami ? <th></th> : <></>}
-          {show_date ? <th></th> : <></>}
         </tr>
       </thead>
       <tbody>
@@ -41,12 +37,6 @@ function BaseballGame({ game, show_scorhegami, show_date }: BaseballGameProps) {
           {awayPart.map((n, i) => (
             <td key={`away-${i}`}>{n}</td>
           ))}
-          {show_scorhegami ? (
-            <td rowSpan={2}>{game.is_scorhegami ? "ScoRHEgami!" : ""}</td>
-          ) : (
-            <></>
-          )}
-          {show_date ? <td rowSpan={2}>{game.date}</td> : <></>}
         </tr>
         <tr>
           <td>{game.home_team.name}</td>

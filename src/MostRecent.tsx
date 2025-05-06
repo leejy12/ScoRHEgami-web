@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GameGetRequest, GameGetResponse, getGames } from "./api";
-import BaseballGame from "./BaseballGame";
+import BaseballGameTable from "./BaseballGameTable";
 
 function MostRecent() {
   const [games, setGames] = useState<GameGetResponse[]>([]);
@@ -21,16 +21,7 @@ function MostRecent() {
   }, []);
 
   return (
-    <>
-      {games.map((game) => (
-        <BaseballGame
-          key={game.id}
-          game={game}
-          show_scorhegami={false}
-          show_date={true}
-        />
-      ))}
-    </>
+    <BaseballGameTable games={games} show_scorhegami={false} show_date={true} />
   );
 }
 

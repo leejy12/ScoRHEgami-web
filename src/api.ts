@@ -1,3 +1,5 @@
+import config from "./config";
+
 export interface TeamModel {
   id: number;
   short_name: string | null;
@@ -80,7 +82,7 @@ export async function getGames(
     });
   }
 
-  const resp = await fetch(`http://127.0.0.1:8000/game?${params.toString()}`);
+  const resp = await fetch(`${config.apiUrl}/game?${params.toString()}`);
 
   return await resp.json();
 }
@@ -112,9 +114,7 @@ export async function getGamesCount(
     });
   }
 
-  const resp = await fetch(
-    `http://127.0.0.1:8000/game/count?${params.toString()}`
-  );
+  const resp = await fetch(`${config.apiUrl}/game/count?${params.toString()}`);
 
   return await resp.json();
 }

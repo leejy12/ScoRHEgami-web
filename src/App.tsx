@@ -1,8 +1,8 @@
 import { useState } from "react";
-import GameLookup from "./GameLookup";
 import TodayGames from "./TodayGames";
-import "./App.css";
 import MostRecent from "./MostRecent";
+import GameLookup from "./GameLookup";
+import "./App.css";
 
 function Select() {
   const [menu, setMenu] = useState(0);
@@ -40,7 +40,7 @@ function Main({ menu }: MainProps) {
 function App() {
   return (
     <>
-      <h1>Welcome to my app</h1>
+      <h1>MLB ScoRHEgami</h1>
       <Select />
     </>
   );

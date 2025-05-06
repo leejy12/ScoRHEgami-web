@@ -43,6 +43,13 @@ export type GameGetRequest = {
   rhe?: number[];
 };
 
+export type GameCountGetRequest = {
+  filter_dates?: Date[];
+  filter_statuses?: GameStatusEnum[];
+  is_scorhegami?: boolean;
+  rhe?: number[];
+};
+
 export async function getGames(
   request: GameGetRequest
 ): Promise<GameGetResponse[]> {
@@ -74,6 +81,40 @@ export async function getGames(
   }
 
   const resp = await fetch(`http://127.0.0.1:8000/game?${params.toString()}`);
+
+  return await resp.json();
+}
+
+export async function getGamesCount(
+  request: GameCountGetRequest
+): Promise<number> {
+  const params = new URLSearchParams();
+
+  if (request.filter_dates?.length) {
+    request.filter_dates.forEach((date) => {
+      params.append("filter_dates", formatDateToYYYYMMDD(date));
+    });
+  }
+
+  if (request.filter_statuses?.length) {
+    request.filter_statuses.forEach((status) => {
+      params.append("filter_statuses", status);
+    });
+  }
+
+  if (request.is_scorhegami) {
+    params.append("is_scorhegami", request.is_scorhegami.toString());
+  }
+
+  if (request.rhe?.length) {
+    request.rhe.forEach((n) => {
+      params.append("rhe", n.toString());
+    });
+  }
+
+  const resp = await fetch(
+    `http://127.0.0.1:8000/game/count?${params.toString()}`
+  );
 
   return await resp.json();
 }

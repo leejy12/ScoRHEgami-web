@@ -136,6 +136,12 @@ function GameLookup() {
         <button type="submit">Submit</button>
       </form>
 
+      {totalGames > 0 && !isLoading && (
+        <div>
+          Found {totalGames} game{totalGames !== 1 ? "s" : ""}.
+        </div>
+      )}
+
       {isLoading ? (
         <div>Loading...</div>
       ) : (

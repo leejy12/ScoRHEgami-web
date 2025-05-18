@@ -4,3 +4,39 @@
   padding: 2rem;
   /* text-align: center; */
 }
+
+.baseball-game-table {
+  /* background-color: yellow; */
+  width: 100%;
+  /* border: 1px solid #ddd; */
+}
+
+.baseball-game-table-extra-th {
+  width: 15%;
+  text-align: center;
+}
+
+.baseball-game-table-extra-td {
+  font-weight: bold;
+  text-align: center;
+}
+
+.baseball-game-table th,
+.baseball-game-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.box-score-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.box-score-table-rhe {
+  text-align: center;
+  font-weight: bold;
+}
+
+.box-score-table-inning {
+  text-align: center;
+}

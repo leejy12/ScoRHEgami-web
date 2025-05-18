@@ -14,12 +14,20 @@ function BaseballGameTable({
 }: BaseballGameTableProps) {
   return (
     <>
-      <table>
+      <table className="baseball-game-table">
         <thead>
           <tr>
             <th>Game</th>
-            {show_scorhegami ? <th>Is ScoRHEgami?</th> : <></>}
-            {show_date ? <th>Date</th> : <></>}
+            {show_scorhegami ? (
+              <th className="baseball-game-table-extra-th">Is ScoRHEgami?</th>
+            ) : (
+              <></>
+            )}
+            {show_date ? (
+              <th className="baseball-game-table-extra-th">Date</th>
+            ) : (
+              <></>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -29,11 +37,17 @@ function BaseballGameTable({
                 <BaseballGame key={game.id} game={game} />
               </td>
               {show_scorhegami ? (
-                <td>{game.is_scorhegami ? "ScoRHEgami!" : ""}</td>
+                <td className="baseball-game-table-extra-td">
+                  {game.is_scorhegami ? "ScoRHEgami!" : ""}
+                </td>
               ) : (
                 <></>
               )}
-              {show_date ? <td>{game.date}</td> : <></>}
+              {show_date ? (
+                <td className="baseball-game-table-extra-td">{game.date}</td>
+              ) : (
+                <></>
+              )}
             </tr>
           ))}
         </tbody>

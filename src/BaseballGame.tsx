@@ -12,17 +12,30 @@ function BaseballGame({ game }: BaseballGameProps) {
       ? Array(12).fill("-")
       : boxScore.slice(0, boxScore.length / 2);
 
+  const awayInnings = awayPart.slice(0, -3);
+  const awayRHE = awayPart.slice(-3);
+
   const homePart: number[] | string[] =
     game.status === "STATUS_SCHEDULED"
       ? Array(12).fill("-")
       : boxScore.slice(boxScore.length / 2);
 
+  const homeInnings = homePart.slice(0, -3);
+  const homeRHE = homePart.slice(-3);
+
   const numInnings = Math.max(awayPart.length - 3, 9);
   return (
-    <table>
+    <table className="box-score-table">
+      <colgroup>
+        <col style={{ width: "16rem" }} />
+        <col span={numInnings} />
+        <col style={{ width: "3rem" }} />
+        <col style={{ width: "3rem" }} />
+        <col style={{ width: "3rem" }} />
+      </colgroup>
       <thead>
         <tr>
-          <td>&nbsp;</td>
+          <th>&nbsp;</th>
           {Array.from({ length: numInnings }, (_, i) => (
             <th key={i}>{i + 1}</th>
           ))}
@@ -34,14 +47,28 @@ function BaseballGame({ game }: BaseballGameProps) {
       <tbody>
         <tr>
           <td>{game.away_team.name}</td>
-          {awayPart.map((n, i) => (
-            <td key={`away-${i}`}>{n}</td>
+          {awayInnings.map((n, i) => (
+            <td className="box-score-table-inning" key={`away-inning-${i}`}>
+              {n}
+            </td>
+          ))}
+          {awayRHE.map((n, i) => (
+            <td className="box-score-table-rhe" key={`away-rhe-${i}`}>
+              {n}
+            </td>
           ))}
         </tr>
         <tr>
           <td>{game.home_team.name}</td>
-          {homePart.map((n, i) => (
-            <td key={`home-${i}`}>{n}</td>
+          {homeInnings.map((n, i) => (
+            <td className="box-score-table-inning" key={`home-inning-${i}`}>
+              {n}
+            </td>
+          ))}
+          {homeRHE.map((n, i) => (
+            <td className="box-score-table-rhe" key={`home-rhe-${i}`}>
+              {n}
+            </td>
           ))}
         </tr>
       </tbody>

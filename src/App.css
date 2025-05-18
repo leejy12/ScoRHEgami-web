@@ -5,6 +5,25 @@
   /* text-align: center; */
 }
 
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav-buttons button {
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav-buttons button:hover {
+  background-color: #e0e0e0;
+}
+
 .baseball-game-table {
   /* background-color: yellow; */
   width: 100%;

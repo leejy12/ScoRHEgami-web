@@ -9,9 +9,11 @@ function Select() {
 
   return (
     <div>
-      <button onClick={() => setMenu(0)}>Today's Games</button>
-      <button onClick={() => setMenu(1)}>Most Recent</button>
-      <button onClick={() => setMenu(2)}>Search</button>
+      <div className="nav-buttons">
+        <button onClick={() => setMenu(0)}>Today's Games</button>
+        <button onClick={() => setMenu(1)}>Most Recent</button>
+        <button onClick={() => setMenu(2)}>Search</button>
+      </div>
       <Main menu={menu} />
     </div>
   );

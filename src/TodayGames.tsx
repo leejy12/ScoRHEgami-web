@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { GameGetRequest, GameGetResponse, getGames } from "./api";
+import {
+  GameGetRequest,
+  GameGetResponse,
+  getLastCompletedDate,
+  getGames,
+} from "./api";
 import BaseballGameTable from "./BaseballGameTable";
 
 function TodayGames() {
@@ -8,10 +13,7 @@ function TodayGames() {
 
   useEffect(() => {
     const setGameData = async () => {
-      const resp = await fetch(
-        "http://127.0.0.1:8000/game/latest_completed_date"
-      );
-      const lastDate = new Date(await resp.text());
+      const lastDate = await getLastCompletedDate();
       setLastDate(lastDate);
 
       const request: GameGetRequest = {

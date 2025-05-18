@@ -52,6 +52,11 @@ export type GameCountGetRequest = {
   rhe?: number[];
 };
 
+export async function getLastCompletedDate(): Promise<Date> {
+  const resp = await fetch(`${config.apiUrl}/game/latest_completed_date`);
+  return new Date(await resp.text());
+}
+
 export async function getGames(
   request: GameGetRequest
 ): Promise<GameGetResponse[]> {

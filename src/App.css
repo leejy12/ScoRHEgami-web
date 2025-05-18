@@ -60,6 +60,37 @@
   text-align: center;
 }
 
+.game-lookup-form {
+  margin-bottom: 2rem;
+}
+
+.game-lookup-form table {
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.game-lookup-form td,
+.game-lookup-form th {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.game-lookup-form input {
+  width: 3rem;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.game-lookup-form button {
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
 .pagination {
   display: flex;
   gap: 0.5rem;

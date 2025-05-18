@@ -72,7 +72,7 @@ function GameLookup() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="game-lookup-form" onSubmit={handleSubmit}>
         <table>
           <thead>
             <tr>

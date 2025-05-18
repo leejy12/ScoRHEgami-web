@@ -2,7 +2,6 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  /* text-align: center; */
 }
 
 .nav-buttons {
@@ -42,9 +41,7 @@
 }
 
 .baseball-game-table {
-  /* background-color: yellow; */
   width: 100%;
-  /* border: 1px solid #ddd; */
 }
 
 .baseball-game-table-extra-th {

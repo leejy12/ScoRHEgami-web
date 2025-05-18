@@ -5,13 +5,31 @@ import GameLookup from "./GameLookup";
 import "./App.css";
 
 function Select() {
+  // Initialize with 0 (Today's Games) as the default selected tab
   const [menu, setMenu] = useState(0);
 
   return (
     <div>
-      <button onClick={() => setMenu(0)}>Today's Games</button>
-      <button onClick={() => setMenu(1)}>Most Recent</button>
-      <button onClick={() => setMenu(2)}>Search</button>
+      <div className="nav-buttons">
+        <button
+          onClick={() => setMenu(0)}
+          className={menu === 0 ? "active" : ""}
+        >
+          Today's Games
+        </button>
+        <button
+          onClick={() => setMenu(1)}
+          className={menu === 1 ? "active" : ""}
+        >
+          Most Recent
+        </button>
+        <button
+          onClick={() => setMenu(2)}
+          className={menu === 2 ? "active" : ""}
+        >
+          Search
+        </button>
+      </div>
       <Main menu={menu} />
     </div>
   );

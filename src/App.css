@@ -2,5 +2,130 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  /* text-align: center; */
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.nav-buttons button {
+  padding: 0.5rem 1rem;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s ease-in-out;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.nav-buttons button:hover:not(.active) {
+  background-color: #e9e9e9;
+}
+
+/* Style for the active/selected button */
+.nav-buttons button.active {
+  background-color: #e6e6e6;
+  color: #333;
+  border-color: #ccc;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Focus state that doesn't override active state */
+.nav-buttons button:focus:not(.active) {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+}
+
+.baseball-game-table {
+  width: 100%;
+}
+
+.baseball-game-table-extra-th {
+  width: 15%;
+  text-align: center;
+}
+
+.baseball-game-table-extra-td {
+  font-weight: bold;
+  text-align: center;
+}
+
+.baseball-game-table th,
+.baseball-game-table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.box-score-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.box-score-table-rhe {
+  text-align: center;
+  font-weight: bold;
+}
+
+.box-score-table-inning {
+  text-align: center;
+}
+
+.game-lookup-form {
+  margin-bottom: 2rem;
+}
+
+.game-lookup-form table {
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.game-lookup-form td,
+.game-lookup-form th {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.game-lookup-form input {
+  width: 3rem;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.game-lookup-form button {
+  padding: 0.5rem 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination button {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 0.5rem;
 }

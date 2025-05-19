@@ -1,1 +1,1 @@
-Frontend for https://mlbscorhegami.com (not deployed yet)
+Frontend for https://mlbscorhegami.com

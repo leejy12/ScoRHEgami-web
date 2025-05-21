@@ -92,8 +92,6 @@ export async function getGames(
     });
   }
 
-  console.log(params);
-
   const resp = await fetch(`${config.apiUrl}/game?${params.toString()}`);
 
   return await resp.json();

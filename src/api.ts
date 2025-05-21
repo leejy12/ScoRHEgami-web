@@ -54,7 +54,12 @@ export type GameCountGetRequest = {
 
 export async function getLastCompletedDate(): Promise<Date> {
   const resp = await fetch(`${config.apiUrl}/game/latest_completed_date`);
-  return new Date(await resp.text());
+
+  // `dateString` is surrounded with quotes like "2025-05-21".
+  // Because of this, the `Date` object was not being constructed properly on Firefox.
+  const dateString = await resp.text();
+  const trimmedDateString = dateString.slice(1, -1);
+  return new Date(trimmedDateString);
 }
 
 export async function getGames(
@@ -86,6 +91,8 @@ export async function getGames(
       params.append("rhe", n.toString());
     });
   }
+
+  console.log(params);
 
   const resp = await fetch(`${config.apiUrl}/game?${params.toString()}`);
 

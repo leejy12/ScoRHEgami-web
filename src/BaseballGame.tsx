@@ -28,7 +28,9 @@ function BaseballGame({ game }: BaseballGameProps) {
     <table className="box-score-table">
       <colgroup>
         <col style={{ width: "16rem" }} />
-        <col span={numInnings} />
+        {Array.from({ length: numInnings }).map((_, i) => (
+          <col key={`inning-${i}`} style={{ minWidth: "1.3rem" }} />
+        ))}
         <col style={{ width: "3rem" }} />
         <col style={{ width: "3rem" }} />
         <col style={{ width: "3rem" }} />
@@ -37,7 +39,7 @@ function BaseballGame({ game }: BaseballGameProps) {
         <tr>
           <th>&nbsp;</th>
           {Array.from({ length: numInnings }, (_, i) => (
-            <th key={i}>{i + 1}</th>
+            <th className="box-score-table-inning" key={i}>{i + 1}</th>
           ))}
           <th>R</th>
           <th>H</th>

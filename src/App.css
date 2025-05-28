@@ -72,6 +72,7 @@
 
 .box-score-table-inning {
   text-align: center;
+  padding: 0 !important;
 }
 
 .game-lookup-form {

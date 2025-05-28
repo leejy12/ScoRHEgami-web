@@ -25,15 +25,16 @@ function BaseballGame({ game }: BaseballGameProps) {
 
   const numInnings = Math.max(awayPart.length - 3, 5);
   return (
-    <table className="box-score-table">
+    <div style={{ overflowX: "auto", maxWidth: "100vw" }}>
+    <table className="box-score-table" >
       <colgroup>
-        <col style={{ width: "16rem" }} />
+        <col className="box-score-table-teamname" />
         {Array.from({ length: numInnings }).map((_, i) => (
           <col key={`inning-${i}`} style={{ minWidth: "1.3rem" }} />
         ))}
-        <col style={{ width: "3rem" }} />
-        <col style={{ width: "3rem" }} />
-        <col style={{ width: "3rem" }} />
+        <col className="box-score-table-rhe" />
+        <col className="box-score-table-rhe" />
+        <col className="box-score-table-rhe" />
       </colgroup>
       <thead>
         <tr>
@@ -75,6 +76,7 @@ function BaseballGame({ game }: BaseballGameProps) {
         </tr>
       </tbody>
     </table>
+    </div>
   );
 }
 

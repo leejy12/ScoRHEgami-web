@@ -23,7 +23,7 @@ function BaseballGame({ game }: BaseballGameProps) {
   const homeInnings = homePart.slice(0, -3);
   const homeRHE = homePart.slice(-3);
 
-  const numInnings = Math.max(awayPart.length - 3, 9);
+  const numInnings = Math.max(awayPart.length - 3, 5);
   return (
     <table className="box-score-table">
       <colgroup>

@@ -23,56 +23,60 @@ function BaseballGame({ game }: BaseballGameProps) {
   const homeInnings = homePart.slice(0, -3);
   const homeRHE = homePart.slice(-3);
 
-  const numInnings = Math.max(awayPart.length - 3, 9);
+  const numInnings = Math.max(awayPart.length - 3, 5);
   return (
-    <table className="box-score-table">
-      <colgroup>
-        <col style={{ width: "16rem" }} />
-        <col span={numInnings} />
-        <col style={{ width: "3rem" }} />
-        <col style={{ width: "3rem" }} />
-        <col style={{ width: "3rem" }} />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>&nbsp;</th>
-          {Array.from({ length: numInnings }, (_, i) => (
-            <th key={i}>{i + 1}</th>
+    <div style={{ overflowX: "auto", maxWidth: "100vw" }}>
+      <table className="box-score-table" >
+        <colgroup>
+          <col className="box-score-table-teamname" />
+          {Array.from({ length: numInnings }).map((_, i) => (
+            <col key={`inning-${i}`} style={{ minWidth: "1.3rem" }} />
           ))}
-          <th>R</th>
-          <th>H</th>
-          <th>E</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{game.away_team.name}</td>
-          {awayInnings.map((n, i) => (
-            <td className="box-score-table-inning" key={`away-inning-${i}`}>
-              {n}
-            </td>
-          ))}
-          {awayRHE.map((n, i) => (
-            <td className="box-score-table-rhe" key={`away-rhe-${i}`}>
-              {n}
-            </td>
-          ))}
-        </tr>
-        <tr>
-          <td>{game.home_team.name}</td>
-          {homeInnings.map((n, i) => (
-            <td className="box-score-table-inning" key={`home-inning-${i}`}>
-              {n}
-            </td>
-          ))}
-          {homeRHE.map((n, i) => (
-            <td className="box-score-table-rhe" key={`home-rhe-${i}`}>
-              {n}
-            </td>
-          ))}
-        </tr>
-      </tbody>
-    </table>
+          <col className="box-score-table-rhe" />
+          <col className="box-score-table-rhe" />
+          <col className="box-score-table-rhe" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            {Array.from({ length: numInnings }, (_, i) => (
+              <th className="box-score-table-inning" key={i}>{i + 1}</th>
+            ))}
+            <th>R</th>
+            <th>H</th>
+            <th>E</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{game.away_team.name}</td>
+            {awayInnings.map((n, i) => (
+              <td className="box-score-table-inning" key={`away-inning-${i}`}>
+                {n}
+              </td>
+            ))}
+            {awayRHE.map((n, i) => (
+              <td className="box-score-table-rhe" key={`away-rhe-${i}`}>
+                {n}
+              </td>
+            ))}
+          </tr>
+          <tr>
+            <td>{game.home_team.name}</td>
+            {homeInnings.map((n, i) => (
+              <td className="box-score-table-inning" key={`home-inning-${i}`}>
+                {n}
+              </td>
+            ))}
+            {homeRHE.map((n, i) => (
+              <td className="box-score-table-rhe" key={`home-rhe-${i}`}>
+                {n}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }
 

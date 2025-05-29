@@ -62,7 +62,29 @@
 
 .box-score-table {
   table-layout: fixed;
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
+}
+
+.box-score-table-teamname {
+  width: 16rem;
+}
+
+.box-score-table-rhe {
+  width: 3rem;
+}
+
+@media (max-width: 768px) {
+  #root {
+    transform: scale(0.75);
+    transform-origin: left top;
+  }
+  .box-score-table-teamname {
+    width: 10rem;
+  }
+  .box-score-table-rhe {
+    width: 2rem;
+  }
 }
 
 .box-score-table-rhe {
@@ -72,6 +94,7 @@
 
 .box-score-table-inning {
   text-align: center;
+  padding: 0 !important;
 }
 
 .game-lookup-form {

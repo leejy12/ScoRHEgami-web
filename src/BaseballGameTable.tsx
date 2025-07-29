@@ -22,7 +22,10 @@ function BaseballGameTable({
       for (const game of games) {
         if (show_scorhegami && !game.is_scorhegami && game.rhe) {
           try {
-            const count = await getGamesCount({ rhe: game.rhe });
+            const count = await getGamesCount({ 
+              rhe: game.rhe,
+              filter_statuses: ["STATUS_FINAL"]
+            });
             newCounts.set(game.id, count);
           } catch (error) {
             console.error(`Failed to fetch RHE count for game ${game.id}:`, error);

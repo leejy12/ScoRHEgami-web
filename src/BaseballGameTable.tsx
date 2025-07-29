@@ -19,19 +19,31 @@ function BaseballGameTable({
     const fetchRheCounts = async () => {
       const newCounts = new Map<number, number>();
       
-      for (const game of games) {
-        if (show_scorhegami && !game.is_scorhegami && game.rhe) {
+      // Create array of promises for parallel execution
+      const promises = games
+        .filter(game => show_scorhegami && !game.is_scorhegami && game.rhe)
+        .map(async (game) => {
           try {
             const count = await getGamesCount({ 
-              rhe: game.rhe,
+              rhe: game.rhe!,
               filter_statuses: ["STATUS_FINAL"]
             });
-            newCounts.set(game.id, count);
+            return { gameId: game.id, count };
           } catch (error) {
             console.error(`Failed to fetch RHE count for game ${game.id}:`, error);
+            return null;
           }
+        });
+      
+      // Execute all promises in parallel
+      const results = await Promise.all(promises);
+      
+      // Process results and update counts map
+      results.forEach(result => {
+        if (result) {
+          newCounts.set(result.gameId, result.count);
         }
-      }
+      });
       
       setRheCounts(newCounts);
     };

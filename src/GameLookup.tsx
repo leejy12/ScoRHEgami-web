@@ -88,6 +88,7 @@ function GameLookup() {
               <td>
                 <input
                   type="number"
+                  min={0}
                   id="awayR"
                   onChange={(e) => setAwayR(e.target.valueAsNumber)}
                 ></input>
@@ -95,6 +96,7 @@ function GameLookup() {
               <td>
                 <input
                   type="number"
+                  min={0}
                   id="awayH"
                   onChange={(e) => setAwayH(e.target.valueAsNumber)}
                 ></input>
@@ -102,6 +104,7 @@ function GameLookup() {
               <td>
                 <input
                   type="number"
+                  min={0}
                   id="awayE"
                   onChange={(e) => setAwayE(e.target.valueAsNumber)}
                 ></input>
@@ -112,6 +115,7 @@ function GameLookup() {
               <td>
                 <input
                   type="number"
+                  min={0}
                   id="homeR"
                   onChange={(e) => setHomeR(e.target.valueAsNumber)}
                 ></input>
@@ -119,6 +123,7 @@ function GameLookup() {
               <td>
                 <input
                   type="number"
+                  min={0}
                   id="homeH"
                   onChange={(e) => setHomeH(e.target.valueAsNumber)}
                 ></input>
@@ -126,6 +131,7 @@ function GameLookup() {
               <td>
                 <input
                   type="number"
+                  min={0}
                   id="homeE"
                   onChange={(e) => setHomeE(e.target.valueAsNumber)}
                 ></input>

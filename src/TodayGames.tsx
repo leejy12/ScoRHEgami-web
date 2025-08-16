@@ -9,7 +9,7 @@ import BaseballGameTable from "./BaseballGameTable";
 
 function TodayGames() {
   const [games, setGames] = useState<GameGetResponse[]>([]);
-  const [lastDate, setLastDate] = useState<string>("");
+  const [lastDate, setLastDate] = useState<Date>();
 
   useEffect(() => {
     const setGameData = async () => {
@@ -36,12 +36,11 @@ function TodayGames() {
     <>
       <h3>
         Games on{" "}
-        {new Intl.DateTimeFormat("en-US", {
+        {lastDate?.toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
-          timeZone: "UTC",
-        }).format(new Date(lastDate))}
+        })}
       </h3>
       <p>
         There {singular ? "was" : "were"} {numScorhegami}{" "}

@@ -39,7 +39,7 @@ function formatDateToYYYYMMDD(date: Date): string {
 export type GameGetRequest = {
   offset: number;
   count: number;
-  filter_dates?: Date[];
+  filter_dates?: string[];  // "YYYY-MM-DD"
   filter_statuses?: GameStatusEnum[];
   is_scorhegami?: boolean;
   rhe?: number[];
@@ -52,14 +52,13 @@ export type GameCountGetRequest = {
   rhe?: number[];
 };
 
-export async function getLastCompletedDate(): Promise<Date> {
+export async function getLastCompletedDate(): Promise<string> {
   const resp = await fetch(`${config.apiUrl}/game/latest_completed_date`);
 
   // `dateString` is surrounded with quotes like "2025-05-21".
-  // Because of this, the `Date` object was not being constructed properly on Firefox.
+  // Trim the surrounding quotes.
   const dateString = await resp.text();
-  const trimmedDateString = dateString.slice(1, -1);
-  return new Date(trimmedDateString);
+  return dateString.slice(1, -1);
 }
 
 export async function getGames(
@@ -72,7 +71,7 @@ export async function getGames(
 
   if (request.filter_dates?.length) {
     request.filter_dates.forEach((date) => {
-      params.append("filter_dates", formatDateToYYYYMMDD(date));
+      params.append("filter_dates", date);
     });
   }
 

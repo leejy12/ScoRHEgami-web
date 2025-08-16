@@ -9,25 +9,36 @@ import BaseballGameTable from "./BaseballGameTable";
 
 function TodayGames() {
   const [games, setGames] = useState<GameGetResponse[]>([]);
-  const [lastDate, setLastDate] = useState<Date>();
+  const [lastDate, setLastDate] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const setGameData = async () => {
-      const lastDate = await getLastCompletedDate();
-      setLastDate(lastDate);
+      try {
+        const lastDate = await getLastCompletedDate();
+        setLastDate(lastDate);
 
-      const request: GameGetRequest = {
-        offset: 0,
-        count: 30,
-        filter_dates: [lastDate],
-        filter_statuses: ["STATUS_FINAL"],
-      };
-      const games = await getGames(request);
-      setGames(games);
+        const request: GameGetRequest = {
+          offset: 0,
+          count: 30,
+          filter_dates: [lastDate],
+          filter_statuses: ["STATUS_FINAL"],
+        };
+        const games = await getGames(request);
+        setGames(games);
+      } catch (error) {
+        console.error("Error loading game data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     setGameData();
   }, []);
+
+  if (isLoading) {
+    return <div>Loading games...</div>;
+  }
 
   const numScorhegami = games.filter((game) => game.is_scorhegami).length;
   const singular = numScorhegami === 1;
@@ -36,11 +47,12 @@ function TodayGames() {
     <>
       <h3>
         Games on{" "}
-        {lastDate?.toLocaleDateString("en-US", {
+        {new Intl.DateTimeFormat("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
-        })}
+          timeZone: "UTC",
+        }).format(new Date(lastDate))}
       </h3>
       <p>
         There {singular ? "was" : "were"} {numScorhegami}{" "}

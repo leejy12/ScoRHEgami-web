@@ -18,13 +18,13 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
         with:
           submodules: true
           lfs: false
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2.2.0
         with:
-          bun-version: 1.2.10
+          bun-version: 1.3.14
       - name: Install OIDC Client from Core Package
         run: bun install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token

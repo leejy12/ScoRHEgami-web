@@ -1,57 +1,36 @@
-import { useState } from "react";
+import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import TodayGames from "./TodayGames";
 import MostRecent from "./MostRecent";
 import GameLookup from "./GameLookup";
 import "./App.css";
 
 function Select() {
-  // Initialize with 0 (Today's Games) as the default selected tab
-  const [menu, setMenu] = useState(0);
-
   return (
     <div>
-      <div className="nav-buttons">
-        <button
-          onClick={() => setMenu(0)}
-          className={menu === 0 ? "active" : ""}
-        >
+      <nav className="nav-buttons" aria-label="Game views">
+        <NavLink to="/" end>
           Today's Games
-        </button>
-        <button
-          onClick={() => setMenu(1)}
-          className={menu === 1 ? "active" : ""}
-        >
+        </NavLink>
+        <NavLink to="/recent">
           Most Recent
-        </button>
-        <button
-          onClick={() => setMenu(2)}
-          className={menu === 2 ? "active" : ""}
-        >
+        </NavLink>
+        <NavLink to="/search">
           Search
-        </button>
-      </div>
-      <Main menu={menu} />
+        </NavLink>
+      </nav>
+      <Main />
     </div>
   );
 }
 
-type MainProps = {
-  menu: number;
-};
-
-function Main({ menu }: MainProps) {
+function Main() {
   return (
-    <>
-      <div style={{ display: menu === 0 ? "block" : "none" }}>
-        <TodayGames />
-      </div>
-      <div style={{ display: menu === 1 ? "block" : "none" }}>
-        <MostRecent />
-      </div>
-      <div style={{ display: menu === 2 ? "block" : "none" }}>
-        <GameLookup />
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<TodayGames />} />
+      <Route path="/recent" element={<MostRecent />} />
+      <Route path="/search" element={<GameLookup />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

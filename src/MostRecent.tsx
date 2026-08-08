@@ -1,27 +1,37 @@
-import { useEffect, useState } from "react";
-import { GameGetRequest, GameGetResponse, getGames } from "./api";
+import { useEffect } from "react";
+import { GameGetResponse } from "./api";
+import { getMostRecentGames } from "./gameData";
 import BaseballGameTable from "./BaseballGameTable";
 
-function MostRecent() {
-  const [games, setGames] = useState<GameGetResponse[]>([]);
+interface MostRecentProps {
+  cachedGames?: GameGetResponse[];
+  onGamesLoaded: (games: GameGetResponse[]) => void;
+}
 
+function MostRecent({ cachedGames, onGamesLoaded }: MostRecentProps) {
   useEffect(() => {
+    if (cachedGames !== undefined) return;
+
+    let ignore = false;
+
     const setGameData = async () => {
-      const request: GameGetRequest = {
-        offset: 0,
-        count: 10,
-        filter_statuses: ["STATUS_FINAL"],
-        is_scorhegami: true,
-      };
-      const games = await getGames(request);
-      setGames(games);
+      const games = await getMostRecentGames();
+      if (!ignore) onGamesLoaded(games);
     };
 
     setGameData();
-  }, []);
+
+    return () => {
+      ignore = true;
+    };
+  }, [cachedGames, onGamesLoaded]);
 
   return (
-    <BaseballGameTable games={games} show_scorhegami={false} show_date={true} />
+    <BaseballGameTable
+      games={cachedGames ?? []}
+      show_scorhegami={false}
+      show_date={true}
+    />
   );
 }
 

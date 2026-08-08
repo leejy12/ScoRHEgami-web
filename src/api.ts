@@ -1,5 +1,20 @@
 import config from "./config";
 
+const responseCache = new Map<string, Promise<unknown>>();
+
+function getCachedResponse<T>(url: string, load: () => Promise<T>): Promise<T> {
+  const cachedResponse = responseCache.get(url) as Promise<T> | undefined;
+  if (cachedResponse) return cachedResponse;
+
+  const response = load().catch((error: unknown) => {
+    responseCache.delete(url);
+    throw error;
+  });
+
+  responseCache.set(url, response);
+  return response;
+}
+
 export interface TeamModel {
   id: number;
   short_name: string | null;
@@ -53,12 +68,16 @@ export type GameCountGetRequest = {
 };
 
 export async function getLastCompletedDate(): Promise<string> {
-  const resp = await fetch(`${config.apiUrl}/game/latest_completed_date`);
+  const url = `${config.apiUrl}/game/latest_completed_date`;
 
-  // `dateString` is surrounded with quotes like "2025-05-21".
-  // Trim the surrounding quotes.
-  const dateString = await resp.text();
-  return dateString.slice(1, -1);
+  return getCachedResponse(url, async () => {
+    const resp = await fetch(url);
+
+    // `dateString` is surrounded with quotes like "2025-05-21".
+    // Trim the surrounding quotes.
+    const dateString = await resp.text();
+    return dateString.slice(1, -1);
+  });
 }
 
 export async function getGames(
@@ -91,9 +110,12 @@ export async function getGames(
     });
   }
 
-  const resp = await fetch(`${config.apiUrl}/game?${params.toString()}`);
+  const url = `${config.apiUrl}/game?${params.toString()}`;
 
-  return await resp.json();
+  return getCachedResponse(url, async () => {
+    const resp = await fetch(url);
+    return await resp.json();
+  });
 }
 
 export async function getGamesCount(
@@ -123,7 +145,10 @@ export async function getGamesCount(
     });
   }
 
-  const resp = await fetch(`${config.apiUrl}/game/count?${params.toString()}`);
+  const url = `${config.apiUrl}/game/count?${params.toString()}`;
 
-  return await resp.json();
+  return getCachedResponse(url, async () => {
+    const resp = await fetch(url);
+    return await resp.json();
+  });
 }

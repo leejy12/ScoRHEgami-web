@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { GameGetResponse } from "./api";
+import { TodayGamesData } from "./gameData";
 import TodayGames from "./TodayGames";
 import MostRecent from "./MostRecent";
 import GameLookup from "./GameLookup";
@@ -24,10 +27,30 @@ function Select() {
 }
 
 function Main() {
+  const [todayGamesData, setTodayGamesData] = useState<TodayGamesData>();
+  const [mostRecentGames, setMostRecentGames] =
+    useState<GameGetResponse[]>();
+
   return (
     <Routes>
-      <Route path="/" element={<TodayGames />} />
-      <Route path="/recent" element={<MostRecent />} />
+      <Route
+        path="/"
+        element={
+          <TodayGames
+            cachedData={todayGamesData}
+            onDataLoaded={setTodayGamesData}
+          />
+        }
+      />
+      <Route
+        path="/recent"
+        element={
+          <MostRecent
+            cachedGames={mostRecentGames}
+            onGamesLoaded={setMostRecentGames}
+          />
+        }
+      />
       <Route path="/search" element={<GameLookup />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

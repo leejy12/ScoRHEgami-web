@@ -1,45 +1,44 @@
 import { useState, useEffect } from "react";
-import {
-  GameGetRequest,
-  GameGetResponse,
-  getLastCompletedDate,
-  getGames,
-} from "./api";
+import { getTodayGamesData, TodayGamesData } from "./gameData";
 import BaseballGameTable from "./BaseballGameTable";
 
-function TodayGames() {
-  const [games, setGames] = useState<GameGetResponse[]>([]);
-  const [lastDate, setLastDate] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(true);
+interface TodayGamesProps {
+  cachedData?: TodayGamesData;
+  onDataLoaded: (data: TodayGamesData) => void;
+}
+
+function TodayGames({ cachedData, onDataLoaded }: TodayGamesProps) {
+  const [isLoading, setIsLoading] = useState(cachedData === undefined);
 
   useEffect(() => {
+    if (cachedData) return;
+
+    let ignore = false;
+
     const setGameData = async () => {
       try {
-        const lastDate = await getLastCompletedDate();
-        setLastDate(lastDate);
-
-        const request: GameGetRequest = {
-          offset: 0,
-          count: 30,
-          filter_dates: [lastDate],
-          filter_statuses: ["STATUS_FINAL"],
-        };
-        const games = await getGames(request);
-        setGames(games);
+        const data = await getTodayGamesData();
+        if (!ignore) onDataLoaded(data);
       } catch (error) {
         console.error("Error loading game data:", error);
       } finally {
-        setIsLoading(false);
+        if (!ignore) setIsLoading(false);
       }
     };
 
     setGameData();
-  }, []);
 
-  if (isLoading) {
+    return () => {
+      ignore = true;
+    };
+  }, [cachedData, onDataLoaded]);
+
+  if (!cachedData) {
+    if (!isLoading) return <div>Unable to load games.</div>;
     return <div>Loading games...</div>;
   }
 
+  const { games, lastDate } = cachedData;
   const numScorhegami = games.filter((game) => game.is_scorhegami).length;
   const singular = numScorhegami === 1;
 
